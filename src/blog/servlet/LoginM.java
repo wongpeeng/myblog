@@ -1,0 +1,71 @@
+package blog.servlet;
+import java.io.IOException;
+import javax.servlet.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import blog.dao.UserDao;
+import blog.vo.User;
+
+public class LoginM extends HttpServlet {
+	private static final long serialVersionUID=1;
+	public void doGet(HttpServletRequest req,HttpServletResponse res) 
+	throws IOException,ServletException{
+		//add code to judge session existence
+		String click=req.getParameter("click");
+		if(click.equals("guest")) guest(req,res);
+		else{
+			if(click.equals("login")) userLogin(req,res);
+			else userRegister(req,res);
+		}
+	}
+	
+	public void doPost(HttpServletRequest req,HttpServletResponse res)
+	throws IOException,ServletException{
+		doGet(req,res);
+	}
+/////////////////////////////////process request////////////////////////
+	public void guest(HttpServletRequest req,HttpServletResponse res)
+			throws IOException,ServletException{
+		User user=new User();
+		HttpSession session=req.getSession();
+		session.setAttribute("user", user);
+		RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/ShowContent.jsp");
+		dispatcher.forward(req, res);
+	}
+
+	public void userLogin(HttpServletRequest req,HttpServletResponse res)
+			throws IOException,ServletException{
+		UserDao uDao=new UserDao();
+		User user=new User();
+		String userName=req.getParameter("userName");
+		String userPwd=req.getParameter("userPwd");
+		try{
+			user=uDao.checkUser(userName,userPwd);
+			if(user!=null){
+				HttpSession session=req.getSession();
+				session.setAttribute("user", user);
+				RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/ShowContent.jsp");
+				dispatcher.forward(req, res);
+			}
+			else{
+				res.sendRedirect("index.jsp?logErr=yes");
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void userRegister(HttpServletRequest req,HttpServletResponse res)
+			throws IOException,ServletException{
+		UserDao uDao=new UserDao();
+		String userName=req.getParameter("userName");
+		String userPwd=req.getParameter("userPwd");
+		boolean rs=uDao.insertUser(userName,userPwd);
+		if(!rs)
+			res.sendRedirect("index.jsp?regErr=yes");
+		else
+			res.sendRedirect("index.jsp?regOK=yes");
+	}
+}
