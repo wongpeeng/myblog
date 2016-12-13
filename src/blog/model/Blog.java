@@ -1,4 +1,4 @@
-package blog.vo;
+package blog.model;
 public class Blog {
 	private	int		id;
 	private	String	title;

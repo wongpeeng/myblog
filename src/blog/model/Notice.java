@@ -1,4 +1,4 @@
-package blog.vo;
+package blog.model;
 public class Notice {
 	private	int		id;
 	private int		level;

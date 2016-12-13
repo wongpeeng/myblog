@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import com.mysql.jdbc.PreparedStatement;
 
 import blog.dbc.DataBaseConn;
-import blog.vo.User;
+import blog.model.User;
 
 public class UserDao {
 		private	DataBaseConn		dbc=null;

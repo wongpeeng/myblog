@@ -7,23 +7,53 @@
 <title>Welcome to ${sessionScope.user.name}'s main page!</title>
 </head>
 <body>
-<center><h1>Welcome back home,${sessionScope.user.name}!</h1></center>
+
+<center><h2>Welcome back home,${sessionScope.user.name}!</h2></center>
+<br>
+<center>
+	<input type="button" id="myset" 	name="set" 			value="personal settings" 	onclick="myset()">
+	<input type="button" id="myblog" 	name="myblog" 		value="blogs" 				onclick="myblog()">
+	<input type="button" id="mycomment" name="mycomment" 	value="comments" 			onclick="mycomment()">
+</center>
+<br>
+
 <div id="setting" style="margin:0 auto;width:500px;height:auto;display:block;align=left;border:1px solid #000">
 <pre>
-here is setting center!<br>&nbsp; hello!
+here is setting center!
 </pre>
 </div>
-<br>
+
+
 <div id="blog" style="margin:0 auto;width:500px;height:auto;display:none;align=left;border:1px solid #000">
 <pre>
 here is blog center!
 </pre>
 </div>
-<br>
-<div id="comments" style="margin:0 auto;width:500px;height:auto;display:none;align=left;border:1px solid #000">
+
+
+<div id="comment" style="margin:0 auto;width:500px;height:auto;display:none;align=left;border:1px solid #000">
 <pre>
 here is comments center!
 </pre>
 </div>
+
+<script type="text/javascript">
+function myset(){
+	document.getElementById("setting").style.display="block";
+	document.getElementById("blog").style.display="none";
+	document.getElementById("comment").style.display="none";
+}
+function myblog(){
+	document.getElementById("setting").style.display="none";
+	document.getElementById("blog").style.display="block";
+	document.getElementById("comment").style.display="none";
+}
+function mycomment(){
+	document.getElementById("setting").style.display="none";
+	document.getElementById("blog").style.display="none";
+	document.getElementById("comment").style.display="block";
+}
+
+</script>
 </body>
 </html>

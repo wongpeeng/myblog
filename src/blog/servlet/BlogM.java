@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import blog.dao.BlogDao;
-import blog.vo.Blog;
+import blog.model.Blog;
 
 /**
  * Servlet implementation class content

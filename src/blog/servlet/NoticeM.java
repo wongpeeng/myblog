@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import blog.dao.NoticeDao;
-import blog.vo.Notice;
+import blog.model.Notice;
 
 import java.io.PrintWriter;
 import net.sf.json.JSONArray;
