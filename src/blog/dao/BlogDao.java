@@ -8,7 +8,7 @@ import blog.vo.Blog;
 
 public class BlogDao {
 		private	DataBaseConn		dbc=null;
-		private	List<Blog>		catalog=null;
+		private	List<Blog>			catalog=null;
 		private	PreparedStatement	pstat=null;
 		private	ResultSet			rs=null;
 		private	String				sql=null;
@@ -20,12 +20,12 @@ public class BlogDao {
 		catalog=new LinkedList<Blog>();
 		try{
 			if(bType.equals("daily")){
-				sql="select id,title,author,pubdate,revdate,views,cmtnum from Blog "
-					+ "order by revdate desc, views desc limit ?,20"; 
+				sql="select id,title,author,pubDate,revDate,views,cmt from Blog "
+					+ "order by revDate desc, views desc limit ?,20"; 
 			}
 			else
-				sql="select id,title,author,pubdate,revdate,views,cmtnum from Blog "
-						+ "order by cmtnum desc, views desc limit ?,20"; 
+				sql="select id,title,author,pubDate,revDate,views,cmt from Blog "
+						+ "order by cmt desc, views desc limit ?,20"; 
 			
 			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
 			pstat.setInt(1, num);
@@ -36,10 +36,10 @@ public class BlogDao {
 				blog.setId(rs.getInt("id"));
 				blog.setTitle(rs.getString("title"));
 				blog.setAuthor(rs.getString("author"));
-				blog.setPubDate(df.format(rs.getTimestamp("pubdate")));
-				blog.setRevDate(df.format(rs.getTimestamp("revdate")));
+				blog.setPubDate(df.format(rs.getTimestamp("pubDate")));
+				blog.setRevDate(df.format(rs.getTimestamp("revDate")));
 				blog.setViews(rs.getInt("views"));
-				blog.setCmtnum(rs.getInt("cmtnum"));
+				blog.setCmt(rs.getInt("cmt"));
 				catalog.add(blog);
 			}
 			
@@ -65,10 +65,10 @@ public class BlogDao {
 				blog.setId(rs.getInt("id"));
 				blog.setTitle(rs.getString("title"));
 				blog.setAuthor(rs.getString("author"));
-				blog.setPubDate(df.format(rs.getTimestamp("pubdate")));
-				blog.setRevDate(df.format(rs.getTimestamp("revdate")));
+				blog.setPubDate(df.format(rs.getTimestamp("pubDate")));
+				blog.setRevDate(df.format(rs.getTimestamp("revDate")));
 				blog.setViews(rs.getInt("views")+1);
-				blog.setCmtnum(rs.getInt("cmtnum"));
+				blog.setCmt(rs.getInt("cmt"));
 				blog.setContent(rs.getString("content"));
 				sql="update Blog set views=views+1 where id=?";
 				pstat.close();

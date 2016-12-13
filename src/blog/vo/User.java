@@ -4,7 +4,7 @@ public class User {
 	private	String	name;
 	private	String	grp;
 	private String	pwd;
-	private	String	createdate;
+	private	String	regDate;
 	
 	public void setId(int id){
 		this.id=id;
@@ -34,10 +34,10 @@ public class User {
 		return pwd;
 	}
 	
-	public void setCreatedate(String createdate){
-		this.createdate=createdate;
+	public void setRegDate(String regDate){
+		this.regDate=regDate;
 	}
-	public String getCreatedate(){
-		return createdate;
+	public String getRegDate(){
+		return regDate;
 	}
 }

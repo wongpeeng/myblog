@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>${requestScope.blog.title}</title>
 </head>
 <body>
 <center>
 	<%@ include file="PersonInfo.jsp" %>
-	<div id="blogContet" style="width=100px">
+	<div id="blogContet" style="width:500px;height:auto;border:1px solid #000">
 		${requestScope.blog.content}
 	</div>
 	<%@ include file="ExtraInfo.jsp" %>

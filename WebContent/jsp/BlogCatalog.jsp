@@ -44,7 +44,7 @@ function loadBlogCatalog(url){
 			var ref="<a href=\"blog.do?blogType=show&id=";
 			if(con.length!=0){
 				for(var js in con){
-					txt=txt+ref+con[js].id+"\">"+con[js].title+"</a><br>author:"+con[js].author+"&nbsp;&nbsp;&nbsp;&nbsp;comments:"+con[js].cmtnum+"&nbsp;&nbsp;&nbsp;&nbsp;views:"+con[js].views+"<br>pubdate:"+con[js].pubDate+"&nbsp;&nbsp;&nbsp;&nbsp;revdate:"+con[js].revDate+"<br><br>";
+					txt=txt+ref+con[js].id+"\">"+con[js].title+"</a><br>author:"+con[js].author+"&nbsp;&nbsp;&nbsp;&nbsp;comments:"+con[js].cmt+"&nbsp;&nbsp;&nbsp;&nbsp;views:"+con[js].views+"<br>pubdate:"+con[js].pubDate+"&nbsp;&nbsp;&nbsp;&nbsp;revdate:"+con[js].revDate+"<br><br>";
 				}
 				div.innerHTML=txt;
 				pageNum=pageNum+1;

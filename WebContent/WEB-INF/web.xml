@@ -16,7 +16,7 @@
   </jsp-config>
   <servlet>
     <servlet-name>login.do</servlet-name>
-    <servlet-class>blog.servlet.LoginM</servlet-class>
+    <servlet-class>blog.servlet.UserM</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>login.do</servlet-name>

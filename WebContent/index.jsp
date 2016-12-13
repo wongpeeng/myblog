@@ -22,6 +22,7 @@
     
 <script type="text/javascript">
 	function guestj(){
+		document.getElementById("click").value="guest";
 		document.loginform.submit();
 	}
 	function loginj(){

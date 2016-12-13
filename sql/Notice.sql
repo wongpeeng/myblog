@@ -1,4 +1,4 @@
-CREATE TABLE NOTICE(
+CREATE TABLE Notice(
 	id			INT	AUTO_INCREMENT,
 	level		INT DEFAULT 0,
 	author		VARCHAR(20),
@@ -7,5 +7,5 @@ CREATE TABLE NOTICE(
 	strDate		DATE,
 	endDate		DATE,
 	PRIMARY KEY(id)
-);
+)character set=utf8;
 

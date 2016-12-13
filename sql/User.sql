@@ -1,0 +1,11 @@
+CREATE TABLE User(
+	id			INT NOT NULL AUTO_INCREMENT,
+	name		VARCHAR(20) NOT NULL,
+	grp			VARCHAR(5) NOT NULL,
+	pwd			VARCHAR(20) NOT NULL,
+	regDate		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(id)
+)character set=utf8;
+INSERT INTO User(name,grp,pwd)VALUES('wongpeeng','admin','wp19890818');
+
+

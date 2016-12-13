@@ -32,7 +32,7 @@ public class UserDao {
 				user.setName(rs.getString("name"));
 				user.setGrp(rs.getString("grp"));
 				user.setPwd(rs.getString("pwd"));
-				user.setCreatedate(df.format(rs.getDate("createdate")));
+				user.setRegDate(df.format(rs.getDate("regDate")));
 			}
 		}
 		catch(SQLException e){

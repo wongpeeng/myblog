@@ -7,7 +7,7 @@ public class Blog {
 	private	String	pubDate;
 	private String	revDate;
 	private	int		views;
-	private int		cmtnum;
+	private int		cmt;
 	
 	
 	public void setId(int id){
@@ -59,10 +59,10 @@ public class Blog {
 		return views;
 	}
 	
-	public void setCmtnum(int cmtnum){
-		this.cmtnum=cmtnum;
+	public void setCmt(int cmt){
+		this.cmt=cmt;
 	}
-	public int getCmtnum(){
-		return cmtnum;
+	public int getCmt(){
+		return cmt;
 	}
 }

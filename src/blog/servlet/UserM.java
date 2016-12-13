@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import blog.dao.UserDao;
 import blog.vo.User;
 
-public class LoginM extends HttpServlet {
+public class UserM extends HttpServlet {
 	private static final long serialVersionUID=1;
 	public void doGet(HttpServletRequest req,HttpServletResponse res) 
 	throws IOException,ServletException{
