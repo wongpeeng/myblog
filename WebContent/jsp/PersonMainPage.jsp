@@ -24,14 +24,12 @@ here is setting center!
 </div>
 
 
-<div id="blog" style="margin:0 auto;width:500px;height:auto;display:none;align=left;border:1px solid #000">
-<pre>
-here is blog center!
-</pre>
+<div id="blog" style="margin:0 auto;width:500px;height:auto;display:none;align=left;">
+<%@ include file="BlogTab.jsp" %>
 </div>
 
 
-<div id="comment" style="margin:0 auto;width:500px;height:auto;display:none;align=left;border:1px solid #000">
+<div id="comment" style="margin:0 auto;height:auto;display:none;align=left;border:1px solid #000">
 <pre>
 here is comments center!
 </pre>
