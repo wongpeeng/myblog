@@ -84,6 +84,24 @@ public class BlogDao {
 		}
 			return blog;
 	}
-
-
+	
+	public boolean newBlog(String title,String author,String content){
+		dbc=new DataBaseConn();
+		boolean r=false;
+		try{
+			sql="insert into Blog(title,author,content) values(?,?,?)";
+			pstat=(PreparedStatement) dbc.getConn().prepareStatement(sql);
+			pstat.setString(1, title);
+			pstat.setString(2, author);
+			pstat.setString(3, content);
+			int c=pstat.executeUpdate();
+			if(c!=0) r=true;
+		}catch(SQLException e){
+			System.out.println("fail to insert new blog!");
+			e.printStackTrace();
+		}finally{
+			dbc.close(pstat, rs);
+		}
+		return r;
+	}
 }

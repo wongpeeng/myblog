@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import blog.dao.BlogDao;
 import blog.model.Blog;
+import blog.model.User;
 
 /**
  * Servlet implementation class content
@@ -34,6 +36,7 @@ public class BlogM extends HttpServlet {
 		String bType=req.getParameter("blogType");
 		if(bType.equals("daily")||bType.equals("weekly"))getCatalog(req,res,bType);
 		if(bType.equals("show")) getBlog(req,res);
+		if(bType.equals("newBlog")) addBlog(req,res);
 	}
 
 
@@ -63,5 +66,24 @@ public class BlogM extends HttpServlet {
 		req.setAttribute("blog", blog);
 		RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/BlogDetail.jsp");
 		dispatcher.forward(req, res);
+	}
+	
+	public void addBlog(HttpServletRequest req,HttpServletResponse res){
+		String title=req.getParameter("title");
+		String content=req.getParameter("content");
+		///replace special character in title
+		title.replace("\r\n", "");//remoce \r\n
+		title.replace(" ", "&nbsp;");//replace space
+		title.replace("\"","&quot;");//replace "
+		title.replace("\'", "&apos;");//replace '
+		//replace special character in content
+		content.replace("\r\n", "<br>");//\r\n
+		content.replace(" ", "&nbsp;");//replace space
+		content.replace("\"","&quot;");//replace "
+		content.replace("\'", "&apos;");//replace '
+		BlogDao bDao=new BlogDao();
+		HttpSession session=req.getSession();
+		User u=(User) session.getAttribute("user");
+		bDao.newBlog(title,u.getName(), content);
 	}
 }
