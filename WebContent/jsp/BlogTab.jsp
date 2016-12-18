@@ -35,8 +35,8 @@
 	function subBlog(){
 		var t1=document.getElementById("title");
 		var t2=document.getElementById("content");
-		var reg=/[^a-zA-Z0-9_\s\u4e00-\u9fa5\ufe30-\uffa0\u3000-\u303f-,:!.?\'\"\r\n]/g;
-		if(t1.value.length>200||t1.value.length<10||t2.value.length>2000||t1.value.length<10){
+		var reg=/[^\u0020-\u007e\u4e00-\u9fa5\ufe30-\uffa0\u3000-\u303f\u2018\u2019\u2014\u2026\u2013\u201c\u201d\r\n]/g;
+		if(t1.value.length>200||t1.value.length<10||t2.value.length>2000||t2.value.length<10){
 			alert("10<=title character<=200!\n10<=content length<=2000!");
 			return false;
 		}
