@@ -15,6 +15,7 @@ import net.sf.json.JSONArray;
 import blog.dao.BlogDao;
 import blog.model.Blog;
 import blog.model.User;
+import blog.util.CharacterReplace;
 
 /**
  * Servlet implementation class content
@@ -72,23 +73,9 @@ public class BlogM extends HttpServlet {
 		String title=req.getParameter("title");
 		String content=req.getParameter("content");
 		///replace special character in title
-		title=title.replace("&", "&amp;");
-		title=title.replace("<","&lt;");
-		title=title.replace(">","&gt;");
-		title=title.replace("\r\n", "");//remoce \r\n
-		title=title.replace("\n", "");//remoce \r\n
-		title=title.replace(" ", "&nbsp;");//replace space
-		title=title.replace("\"","&quot;");//replace "
-		title=title.replace("\'", "&apos;");//replace '
+		title=CharacterReplace.titleReplace(title);
 		//replace special character in content
-		content=content.replace("&", "&amp;");
-		content=content.replace("<","&lt;");
-		content=content.replace(">","&gt;");
-		content=content.replace("\r\n", "<br>");//\r\n
-		content=content.replace("\n", "<br>");//\n
-		content=content.replace(" ", "&nbsp;");//replace space
-		content=content.replace("\"","&quot;");//replace "
-		content=content.replace("\'", "&apos;");//replace '
+		content=CharacterReplace.contentReplace(content);
 		BlogDao bDao=new BlogDao();
 		HttpSession session=req.getSession();
 		User u=(User) session.getAttribute("user");
