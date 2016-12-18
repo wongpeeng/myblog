@@ -72,15 +72,18 @@ public class BlogM extends HttpServlet {
 		String title=req.getParameter("title");
 		String content=req.getParameter("content");
 		///replace special character in title
-		title.replace("\r\n", "");//remoce \r\n
-		title.replace(" ", "&nbsp;");//replace space
-		title.replace("\"","&quot;");//replace "
-		title.replace("\'", "&apos;");//replace '
+		title=title.replace("\r\n", "");//remoce \r\n
+		title=title.replace("\n", "");//remoce \r\n
+		title=title.replace(" ", "&nbsp;");//replace space
+		title=title.replace("\"","&quot;");//replace "
+		title=title.replace("\'", "&apos;");//replace '
 		//replace special character in content
-		content.replace("\r\n", "<br>");//\r\n
-		content.replace(" ", "&nbsp;");//replace space
-		content.replace("\"","&quot;");//replace "
-		content.replace("\'", "&apos;");//replace '
+		content=content.replace("\r\n", "<br>");//\r\n
+		content=content.replace("\n", "<br>");//\n
+		content=content.replace(" ", "&nbsp;");//replace space
+		content=content.replace("\"","&quot;");//replace "
+		content=content.replace("\'", "&apos;");//replace '
+		System.out.println(content);
 		BlogDao bDao=new BlogDao();
 		HttpSession session=req.getSession();
 		User u=(User) session.getAttribute("user");

@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DataBaseConn {
 	private static String DBDriver="com.mysql.jdbc.Driver";
-	private static String DBUrl="jdbc:mysql://localhost:3306/myblog";
+	private static String DBUrl="jdbc:mysql://localhost:3306/myblog?characterEncoding=UTF-8";
 	private static String DBUser="root";
 	private static String DBPwd="wp19890818";
 	private Connection conn=null;
