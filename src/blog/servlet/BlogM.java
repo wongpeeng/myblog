@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import blog.dao.BlogDao;
 import blog.model.Blog;
 import blog.model.User;
@@ -69,7 +70,7 @@ public class BlogM extends HttpServlet {
 		dispatcher.forward(req, res);
 	}
 	
-	public void addBlog(HttpServletRequest req,HttpServletResponse res){
+	public void addBlog(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		String title=req.getParameter("title");
 		String content=req.getParameter("content");
 		///replace special character in title
@@ -79,6 +80,14 @@ public class BlogM extends HttpServlet {
 		BlogDao bDao=new BlogDao();
 		HttpSession session=req.getSession();
 		User u=(User) session.getAttribute("user");
-		bDao.newBlog(title,u.getName(), content);
+		boolean rs=bDao.newBlog(title,u.getName(), content);
+		res.setContentType("application/json; charset=utf-8");
+		PrintWriter out = res.getWriter();
+		JSONObject jo=new JSONObject();
+		if(rs) jo.put("status", "true");
+		else jo.put("status", "false");
+		out.println(jo);
+		out.flush();
+		out.close();
 	}
 }

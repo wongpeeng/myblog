@@ -4,7 +4,7 @@
 	<input type="button" id="pubBlog" name="pubBlog" value="my blogs" onclick="">
 </center>
 <div id="blog_p1" style="display:block;">
-	<form name="newBlogForm" method="post" action="/myblog/blog.do">
+	<form id="newBlogForm"  method="post" action="/myblog/blog.do">
 		title
 		<br>
 		<textarea id ="title" name="title" style="height:32px;width:500px;"></textarea>
@@ -48,6 +48,33 @@
 			alert("illegal characters in content!");
 			return false;
 		}
-		document.newBlogForm.submit();
+		subBlog_2();
+	}
+	function subBlog_2(){
+		var xmlHttpBlog;
+		var url="/myblog/blog.do";
+		var formobj=document.getElementById("newBlogForm");
+		var formdata=new FormData(formobj);
+		if(window.XMLHttpRequest){
+			xmlHttpBlog=new XMLHttpRequest();
+		}
+		else{
+			xmlHttpBlog=new ActiveXObject("Microsof.XMLHTTP");
+		}
+		xmlHttpBlog.onreadystatechange=function (){
+			if(xmlHttpBlog.readyState==4 && xmlHttpBlog.status==200){
+				var rs=eval("("+xmlHttpBlog.responseText+")");
+				if(rs[status]=="true") {
+					alert("successfully!");
+					document.getElementById("title").value="";
+					document.getElementById("content").value="";
+				}
+				else alert("try again!");
+				
+			}
+		}
+		xmlHttpBlog.open("post",url,false);
+		xmlHttpBlog.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlHttpBlog.send(formdata);
 	}
 </script>
