@@ -1,7 +1,7 @@
 <br>
 <center>
 	<input type="button" id="nBlog" name="nBlog" value="new blog" onclick="nBlog()">
-	<input type="button" id="pubBlog" name="pubBlog" value="my blogs" onclick="">
+	<input type="button" id="pubBlog" name="pubBlog" value="my blogs" onclick="pubBlog()">
 </center>
 <div id="blog_p1" style="display:block;">
 	<form id="newBlogForm"  method="post" action="/myblog/blog.do">
@@ -31,7 +31,10 @@
 			div.style.display="none";
 		}
 	}
-
+	function pubBlog(){
+		nBlog()
+	}
+	
 	function subBlog(){
 		var t1=document.getElementById("title");
 		var t2=document.getElementById("content");
@@ -54,7 +57,10 @@
 		var xmlHttpBlog;
 		var url="/myblog/blog.do";
 		var formobj=document.getElementById("newBlogForm");
-		var formdata=new FormData(formobj);
+		var t=document.getElementById("title").value;
+		var c=document.getElementById("content").value;
+		var b=document.getElementById("blogType").value;
+		var formdata="title="+t+"&content="+c+"&blogType="+b;
 		if(window.XMLHttpRequest){
 			xmlHttpBlog=new XMLHttpRequest();
 		}
@@ -64,7 +70,7 @@
 		xmlHttpBlog.onreadystatechange=function (){
 			if(xmlHttpBlog.readyState==4 && xmlHttpBlog.status==200){
 				var rs=eval("("+xmlHttpBlog.responseText+")");
-				if(rs[status]=="true") {
+				if(rs.status=="true") {
 					alert("successfully!");
 					document.getElementById("title").value="";
 					document.getElementById("content").value="";
