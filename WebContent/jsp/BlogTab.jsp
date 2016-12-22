@@ -19,22 +19,30 @@
 		</p>
 	</form>
 </div>
+	
+<div id="blog_p2" style="display:block;">
+	<div id="myBlog"></div>
+	<br>
+	<p style="margin:0 auto;text-align:center;">
+	<input type="button" id="pre" name="pre" value="pre" onclick="prePage()">
+	<input type="button" id="cur" name="cur" value="1" >
+	<input type="button" id="next" name="next" value="next" onclick="nextPage()">
+	</p>
+</div>
 <script type="text/javascript">
 	function nBlog(){
-		var div=document.getElementById("blog_p1");
-		if(div.style.display=="none"){
-			div.style.display="block";
+		var div1=document.getElementById("blog_p1");
+		var div2=document.getElementById("blog_p2");div2.style.display="none";
+		if(div1.style.display=="none"){
+			div1.style.display="block";
 			document.getElementById("title").value="";
 			document.getElementById("content").value="";
 			}
 		else{
-			div.style.display="none";
+			div1.style.display="none";
 		}
 	}
-	function pubBlog(){
-		nBlog()
-	}
-	
+	//submit a new blog
 	function subBlog(){
 		var t1=document.getElementById("title");
 		var t2=document.getElementById("content");
@@ -80,6 +88,58 @@
 				}
 				
 				
+			}
+		}
+		xmlHttpBlog.open("post",url,false);
+		xmlHttpBlog.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlHttpBlog.send(formdata);
+	}
+	
+	//display my published blog
+		var pageNum=0;
+		function prePage(){
+			if(pageNum<=1)
+				alert("This is already first page!");
+			else{
+				pageNum=pageNum-2;
+				pubBlog_2();
+			}
+		}
+		function nextPage(){
+			pubBlog_2();
+		}
+		function pubBlog(){
+		var div1=document.getElementById("blog_p1");div2.style.display="none";
+		var div2=document.getElementById("blog_p2");
+		if(div2.style.display=="none")
+			div2.style.display="block";
+		else
+			div2.style.display="none";
+		pageNum=0;
+		pubBlog_2();
+	}
+	function pubBlog_2(){
+		var xmlHttpBlog;
+		var url="/myblog/blog.do";
+		var num=pageNum+1;
+		var data="blogType=myBlog&pageNum="+num;
+		if(window.XMLHttpRequest){
+			xmlHttpBlog=new XMLHttpRequest();
+		}
+		else{
+			xmlHttpBlog=new ActiveXObject("Microsof.XMLHTTP");
+		}
+		xmlHttpBlog.onreadystatechange=function (){
+			if(xmlHttpBlog.readyState==4 && xmlHttpBlog.status==200){
+				var response=xmlHttpBlog.responseText;
+				if(response.length==0) alert("last page already");
+				else{
+					var div=document.getElementById("myBlog");
+					var cur=document.getELementById("cur");
+					div.innerHTML=response;
+					pageNum=pageNum+1;
+					cur.value=pageNum;
+				}
 			}
 		}
 		xmlHttpBlog.open("post",url,false);

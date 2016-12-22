@@ -2,6 +2,8 @@ package blog.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,6 +41,7 @@ public class BlogM extends HttpServlet {
 		if(bType.equals("daily")||bType.equals("weekly"))getCatalog(req,res,bType);
 		if(bType.equals("show")) getBlog(req,res);
 		if(bType.equals("newBlog")) addBlog(req,res);
+		if(bType.equals("myBlog")) myBlogList(req,res);
 	}
 
 
@@ -89,5 +92,15 @@ public class BlogM extends HttpServlet {
 		out.println(jo);
 		out.flush();
 		out.close();
+	}
+	
+	public void myBlogList(HttpServletRequest req, HttpServletResponse res){
+		BlogDao bDao=new BlogDao();
+		int pageNum=Integer.parseInt(req.getParameter("pageNum"));
+		HttpSession session=req.getSession();
+		User u=(User) session.getAttribute("user");
+		String name=u.getName();
+		List<Blog> bList=new LinkedList<>();
+		bList=bDao.myBlogList(pageNum,name);
 	}
 }

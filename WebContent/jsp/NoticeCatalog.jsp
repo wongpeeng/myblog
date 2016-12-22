@@ -15,6 +15,7 @@ function bPage(){
 	if(noPage<=1)
 		alert("This is already first page!");
 	else{
+		noPage=noPage-2;
 		updateNoticeCatalog();
 	}
 }

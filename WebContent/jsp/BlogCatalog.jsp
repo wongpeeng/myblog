@@ -16,6 +16,7 @@ function prePage(){
 	if(pageNum<=1)
 		alert("This is already first page!");
 	else{
+		pageNum=pageNum-2;
 		updateBlogCatalog();
 	}
 }

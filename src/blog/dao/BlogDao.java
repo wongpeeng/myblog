@@ -16,16 +16,16 @@ public class BlogDao {
 		
 	public List<Blog> queryCatalog(int pageNum,String bType){
 		dbc=new DataBaseConn();
-		int num=0+20*(pageNum-1);
+		int num=0+10*(pageNum-1);
 		catalog=new LinkedList<Blog>();
 		try{
 			if(bType.equals("daily")){
 				sql="select id,title,author,pubDate,revDate,views,cmt from Blog "
-					+ "order by revDate desc, views desc limit ?,20"; 
+					+ "order by revDate desc, views desc limit ?,10"; 
 			}
 			else
 				sql="select id,title,author,pubDate,revDate,views,cmt from Blog "
-						+ "order by cmt desc, views desc limit ?,20"; 
+						+ "order by cmt desc, views desc limit ?,10"; 
 			
 			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
 			pstat.setInt(1, num);
@@ -103,5 +103,16 @@ public class BlogDao {
 			dbc.close(pstat, rs);
 		}
 		return r;
+	}
+
+	public List<Blog> myBlogList(int pageNum,String name){
+		dbc=new DataBaseConn();
+		int num=0+20*(pageNum-1);
+		catalog=new LinkedList<Blog>();
+		try{
+			sql="select id,title,pubDate,revDate,views,cmt from Blog "
+					+ "order by revDate desc, views desc limit ?,10"; 
+		}
+		
 	}
 }
