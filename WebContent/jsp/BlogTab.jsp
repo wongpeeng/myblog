@@ -51,7 +51,9 @@
 			alert("illegal characters in content!");
 			return false;
 		}
+		newBlogState=false;
 		subBlog_2();
+		if(!newBlogState) alert("try again!");
 	}
 	function subBlog_2(){
 		var xmlHttpBlog;
@@ -72,10 +74,11 @@
 				var rs=eval("("+xmlHttpBlog.responseText+")");
 				if(rs.status=="true") {
 					alert("successfully!");
+					newBlogState=true;
 					document.getElementById("title").value="";
 					document.getElementById("content").value="";
 				}
-				else alert("try again!");
+				
 				
 			}
 		}
