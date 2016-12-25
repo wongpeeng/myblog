@@ -107,12 +107,30 @@ public class BlogDao {
 
 	public List<Blog> myBlogList(int pageNum,String name){
 		dbc=new DataBaseConn();
-		int num=0+20*(pageNum-1);
+		int num=0+10*(pageNum-1);
 		catalog=new LinkedList<Blog>();
 		try{
-			sql="select id,title,pubDate,revDate,views,cmt from Blog "
-					+ "order by revDate desc, views desc limit ?,10"; 
+			sql="select id,title,revDate,cmt from Blog "
+					+ "order by revDate desc, cmt desc limit ?,10"; 
+			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
+			pstat.setInt(1, num);
+			rs=pstat.executeQuery();
+			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			while(rs.next()){
+				Blog blog=new Blog();
+				blog.setId(rs.getInt("id"));
+				blog.setTitle(rs.getString("title"));
+				blog.setRevDate(df.format(rs.getTimestamp("revDate")));
+				blog.setCmt(rs.getInt("cmt"));
+				catalog.add(blog);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
 		}
-		
+		finally{
+			dbc.close(pstat, rs);
+		}
+		return catalog;
 	}
 }

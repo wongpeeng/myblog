@@ -3,7 +3,7 @@
 	<input type="button" id="nBlog" name="nBlog" value="new blog" onclick="nBlog()">
 	<input type="button" id="pubBlog" name="pubBlog" value="my blogs" onclick="pubBlog()">
 </center>
-<div id="blog_p1" style="display:block;">
+<div id="blog_p1" style="display:none;">
 	<form id="newBlogForm"  method="post" action="/myblog/blog.do">
 		title
 		<br>
@@ -20,7 +20,7 @@
 	</form>
 </div>
 	
-<div id="blog_p2" style="display:block;">
+<div id="blog_p2" style="display:none;">
 	<div id="myBlog"></div>
 	<br>
 	<p style="margin:0 auto;text-align:center;">
@@ -109,14 +109,15 @@
 			pubBlog_2();
 		}
 		function pubBlog(){
-		var div1=document.getElementById("blog_p1");div2.style.display="none";
+		var div1=document.getElementById("blog_p1");div1.style.display="none";
 		var div2=document.getElementById("blog_p2");
-		if(div2.style.display=="none")
+		if(div2.style.display=="none"){
+			pageNum=0;
+			pubBlog_2();
 			div2.style.display="block";
+		}
 		else
 			div2.style.display="none";
-		pageNum=0;
-		pubBlog_2();
 	}
 	function pubBlog_2(){
 		var xmlHttpBlog;
@@ -135,7 +136,7 @@
 				if(response.length==0) alert("last page already");
 				else{
 					var div=document.getElementById("myBlog");
-					var cur=document.getELementById("cur");
+					var cur=document.getElementById("cur");
 					div.innerHTML=response;
 					pageNum=pageNum+1;
 					cur.value=pageNum;
@@ -144,6 +145,6 @@
 		}
 		xmlHttpBlog.open("post",url,false);
 		xmlHttpBlog.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xmlHttpBlog.send(formdata);
+		xmlHttpBlog.send(data);
 	}
 </script>

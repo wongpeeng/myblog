@@ -94,7 +94,7 @@ public class BlogM extends HttpServlet {
 		out.close();
 	}
 	
-	public void myBlogList(HttpServletRequest req, HttpServletResponse res){
+	public void myBlogList(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 		BlogDao bDao=new BlogDao();
 		int pageNum=Integer.parseInt(req.getParameter("pageNum"));
 		HttpSession session=req.getSession();
@@ -102,5 +102,8 @@ public class BlogM extends HttpServlet {
 		String name=u.getName();
 		List<Blog> bList=new LinkedList<>();
 		bList=bDao.myBlogList(pageNum,name);
+		req.setAttribute("bList", bList);
+		RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/MyBlogList.jsp");
+		dispatcher.forward(req, res);
 	}
 }
