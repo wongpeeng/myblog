@@ -24,7 +24,7 @@ here is setting center!
 </div>
 
 
-<div id="blog" style="margin:0 auto;width:500px;height:auto;display:none;align=left;">
+<div id="blog" style="margin:0 auto;width:500px;height:auto;display:none;align=left;border:1px solid #000">
 <%@ include file="BlogTab.jsp" %>
 </div>
 
