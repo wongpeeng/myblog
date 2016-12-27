@@ -1,14 +1,16 @@
 <br>
 <br>
+<center>
 ====================Notice====================
+</center>
 <br>
 <br>
-	<div id="Notice"></div>
-<br>
+	<div id="Notice" style="margin:0 auto;width:500px;height:auto;word-wrap:break-word;border:1px solid #000;align=left;"></div>
+<br><center>
 <input type="button" id="before" name="before" value="pre" onclick="bPage()">
 <input type="button" id="now" name="now" value="1" >
 <input type="button" id="after" name="after" value="next" onclick="aPage()">
-
+</center>
 <script type="text/javascript" charset="UTF-8">
 var noPage=0;
 function bPage(){

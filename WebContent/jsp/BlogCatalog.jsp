@@ -1,14 +1,16 @@
 <br>
 <br>
+<center>
 ==================Blog Catalog==================
+</center>
 <br>
 <br>
-	<div id="Blog"></div>
-<br>
+	<div id="Blog" style="margin:0 auto;width:500px;height:auto;word-wrap:break-word;border:1px solid #000;align=left;"></div>
+<br><center>
 <input type="button" id="pre" name="pre" value="pre" onclick="prePage()">
 <input type="button" id="cur" name="cur" value="1" >
 <input type="button" id="next" name="next" value="next" onclick="nextPage()">
-
+</center>
 <script type="text/javascript" charset="UTF-8">
 var blogType="daily";
 var pageNum=0;

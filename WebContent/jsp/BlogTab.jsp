@@ -132,7 +132,7 @@
 		}
 		xmlHttpBlog.onreadystatechange=function (){
 			if(xmlHttpBlog.readyState==4 && xmlHttpBlog.status==200){
-				var response=xmlHttpBlog.responseText;
+				var response=xmlHttpBlog.responseText;;
 				if(response.length==0) alert("last page already");
 				else{
 					var div=document.getElementById("myBlog");

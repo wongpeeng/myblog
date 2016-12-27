@@ -8,7 +8,7 @@
 <title>Blog Main Page</title>
 </head>
 <body onload="updateBlogCatalog();updateNoticeCatalog();">
-	<center>
+
 	<%@ include file="PersonInfo.jsp" %><br>
 	<br>
 	<%@	include file="FuncModule.jsp" %>
@@ -16,6 +16,6 @@
 	<%@ include file="NoticeCatalog.jsp" %>
 	<%@ include file="BlogCatalog.jsp" %>
 	<%@ include file="ExtraInfo.jsp"%>
-	</center>
+
 	</body>
 </html>
