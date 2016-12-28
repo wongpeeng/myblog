@@ -8,12 +8,12 @@
 <title>${requestScope.blog.title}</title>
 </head>
 <body>
-<center>
+
 	<%@ include file="PersonInfo.jsp" %>
-	<div id="blogContet" style="width:500px;height:auto;border:1px solid #000">
+	<div id="blogContet" style="margin:0 auto;width:500px;height:auto;align=left;border:1px solid #000;word-wrap:break-word;">
 		${requestScope.blog.content}
 	</div>
 	<%@ include file="ExtraInfo.jsp" %>
-</center>
+
 </body>
 </html>
