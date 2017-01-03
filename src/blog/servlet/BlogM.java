@@ -42,6 +42,7 @@ public class BlogM extends HttpServlet {
 		if(bType.equals("show")) getBlog(req,res);
 		if(bType.equals("newBlog")) addBlog(req,res);
 		if(bType.equals("myBlog")) myBlogList(req,res);
+		if(bType.equals("delBlog")) delBlog(req,res);
 	}
 
 
@@ -105,5 +106,19 @@ public class BlogM extends HttpServlet {
 		req.setAttribute("bList", bList);
 		RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/MyBlogList.jsp");
 		dispatcher.forward(req, res);
+	}
+
+	public void delBlog(HttpServletRequest req,HttpServletResponse res) throws ServletException ,IOException{
+		BlogDao bDao=new BlogDao();
+		int blogId=Integer.parseInt(req.getParameter("id"));
+		boolean rs=bDao.delBlog(blogId);
+		res.setContentType("application/json; charset=utf-8");
+		PrintWriter out = res.getWriter();
+		JSONObject jo=new JSONObject();
+		if(rs) jo.put("status", "true");
+		else jo.put("status", "false");
+		out.println(jo);
+		out.flush();
+		out.close();
 	}
 }

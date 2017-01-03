@@ -150,6 +150,34 @@
 	
 	//function :delete blog
 	function del(id){
-		
+		var xmlHttpBlog;
+		var url="/myblog/blog.do";
+		var data="blogType=delBlog&id="+id;
+		delstatus="false";
+		delBlog(url,data,id);
+		if(delstatus=="true")alert("sucessfully!");
+		else alert("failed!");
+	}
+	function delBlog(url,data,id){
+		var xmlHttpBlog;
+		if(window.XMLHttpRequest){
+			xmlHttpBlog=new XMLHttpRequest();
+		}
+		else{
+			xmlHttpBlog=new ActiveXObject("Microsof.XMLHTTP");
+		}
+		xmlHttpBlog.onreadystatechange=function (){
+			if(xmlHttpBlog.readyState==4 && xmlHttpBlog.status==200){
+				var rs=eval("("+xmlHttpBlog.responseText+")");
+				if(rs.status=="true") {
+					var div=document.getElementById(id);
+					div.style.display="none";
+					delstatus="true";
+				}	
+			}
+		}
+		xmlHttpBlog.open("post",url,false);
+		xmlHttpBlog.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlHttpBlog.send(data);
 	}
 </script>
