@@ -180,4 +180,5 @@
 		xmlHttpBlog.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlHttpBlog.send(data);
 	}
+	//function :edit blog
 </script>

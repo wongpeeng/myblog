@@ -10,7 +10,7 @@
 				revDate:${blog.revDate}
 				comments:${blog.cmt}
 				<br>
-				<input type="button" value="edit" onclick="edit(${blog.id})">
+				<input type="button" value="edit" onclick="window.location.href='/myblog/blog.do?blogType=edit&id=${blog.id}'">
 				<input type="button" value="delete" onclick="del(${blog.id})">
 				<input type="button" value="read" onclick="window.location.href='/myblog/blog.do?blogType=show&id=${blog.id}'">
 			</div>

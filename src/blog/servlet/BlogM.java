@@ -43,6 +43,7 @@ public class BlogM extends HttpServlet {
 		if(bType.equals("newBlog")) addBlog(req,res);
 		if(bType.equals("myBlog")) myBlogList(req,res);
 		if(bType.equals("delBlog")) delBlog(req,res);
+		if(bType.equals("edit"))	editBlog(req,res);
 	}
 
 
@@ -120,5 +121,15 @@ public class BlogM extends HttpServlet {
 		out.println(jo);
 		out.flush();
 		out.close();
+	}
+
+	public void editBlog(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException{
+		BlogDao bDao=new BlogDao();
+		int blogId=Integer.parseInt(req.getParameter("id"));
+		Blog blog=bDao.queryBlog(blogId);
+		req.setAttribute("blog", blog);
+		req.setAttribute("type", "blog");
+		RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/Edit.jsp");
+		dispatcher.forward(req, res);
 	}
 }
