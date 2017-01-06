@@ -127,6 +127,10 @@ public class BlogM extends HttpServlet {
 		BlogDao bDao=new BlogDao();
 		int blogId=Integer.parseInt(req.getParameter("id"));
 		Blog blog=bDao.queryBlog(blogId);
+		String t=CharacterReplace.titleRestore(blog.getTitle());
+		String c=CharacterReplace.contentRestore(blog.getContent());
+		blog.setTitle(t);
+		blog.setContent(c);
 		req.setAttribute("blog", blog);
 		req.setAttribute("type", "blog");
 		RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/Edit.jsp");
