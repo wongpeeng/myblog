@@ -30,8 +30,8 @@ public class CharacterReplace {
 		t=t.replace( "&apos;","\'");//replace 
 		t=t.replace("&quot;","\"");//replace "
 		t=t.replace("&nbsp;"," " );//replace space
-		t=t.replace("","\n" );//remoce \r\n
-		t=t.replace("","\r\n");//remoce \r\n
+		//t=t.replace("","\n" );//remoce \r\n
+		//t=t.replace("","\r\n");//remoce \r\n
 		t=t.replace("&gt;",">");
 		t=t.replace("&lt;","<");
 		t=t.replace("&amp;","&" );

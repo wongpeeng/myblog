@@ -148,4 +148,24 @@ public class BlogDao {
 		}
 		return r;
 	}
+	
+	public boolean updateBlog(int blogId,String title,String content){
+		dbc=new DataBaseConn();
+		boolean r=false;
+		try{
+			sql="update Blog set title=?,content=? where id=?";
+			pstat = (PreparedStatement) dbc.getConn().prepareStatement(sql);
+			pstat.setString(1, title);
+			pstat.setString(2, content);
+			pstat.setInt(3, blogId);
+			int c=pstat.executeUpdate();
+			if(c!=0) r=true;
+		}catch(SQLException e){
+			System.out.println("failed to update blog!");
+			e.printStackTrace();
+		}finally{
+			dbc.close(pstat, rs);
+		}
+		return r;
+	}
 }

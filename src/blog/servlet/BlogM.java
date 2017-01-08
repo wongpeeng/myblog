@@ -44,6 +44,7 @@ public class BlogM extends HttpServlet {
 		if(bType.equals("myBlog")) myBlogList(req,res);
 		if(bType.equals("delBlog")) delBlog(req,res);
 		if(bType.equals("edit"))	editBlog(req,res);
+		if(bType.equals("updBlog")) updateBlog(req,res);
 	}
 
 
@@ -136,4 +137,25 @@ public class BlogM extends HttpServlet {
 		RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/Edit.jsp");
 		dispatcher.forward(req, res);
 	}
+	
+	public void updateBlog(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException{
+		BlogDao bDao=new BlogDao();
+		int blogId=Integer.parseInt(req.getParameter("id"));
+		String title=req.getParameter("title");
+		String content=req.getParameter("content");
+		///replace special character in title
+		title=CharacterReplace.titleReplace(title);
+		//replace special character in content
+		content=CharacterReplace.contentReplace(content);
+		boolean rs=bDao.updateBlog(blogId,title,content);
+		res.setContentType("application/json; charset=utf-8");
+		PrintWriter out = res.getWriter();
+		JSONObject jo=new JSONObject();
+		if(rs) jo.put("status", "true");
+		else jo.put("status", "false");
+		out.println(jo);
+		out.flush();
+		out.close();
+	}
+	
 }
