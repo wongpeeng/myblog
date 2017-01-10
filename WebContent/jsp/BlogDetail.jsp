@@ -37,6 +37,7 @@
 	<div id="comments"
 		style="margin: 0 auto; width: 500px; word-wrap: break-word;">
 		<font color="red">comments:</font><br>
+		<div id="comments_p2">
 		<c:choose>
 			<c:when test="${requestScope.cmtList.size()==0}">
 				<font color="red">title:</font>
@@ -49,6 +50,7 @@
 				no comments!
 			</c:otherwise>
 		</c:choose>
+		</div>
 	</div>
 	<br>
 	<br>
@@ -63,7 +65,12 @@
 	</c:if>
 	<script type="text/javascript">
 		function newComment(){
-			alert("new comment!");
+			var divSon=document.createElement("div");
+			content=document.getElementById("newComment").value;
+			divSon.innerHTML=content;
+			var divFather=document.getElementById("comments_p2");
+			if(divFather.children.length==0)divFather.innerHTML="";
+			divFather.appendChild(divSon);
 		}
 	</script>
 </body>
