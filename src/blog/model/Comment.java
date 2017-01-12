@@ -1,15 +1,14 @@
 package blog.model;
 public class Comment {
-	private	int id;
+	private int id;
 	private int logId;
-	private int cmtId;
-	private String writer;
+	private String toPerson;
+	private String critic;
 	private String pubDate;
 	private String revDate;
 	private String content;
 	private int pros;
 	private int cons;
-	
 	public int getId() {
 		return id;
 	}
@@ -22,17 +21,17 @@ public class Comment {
 	public void setLogId(int logId) {
 		this.logId = logId;
 	}
-	public int getCmtId() {
-		return cmtId;
+	public String getToPerson() {
+		return toPerson;
 	}
-	public void setCmtId(int cmtId) {
-		this.cmtId = cmtId;
+	public void setToPerson(String toPerson) {
+		this.toPerson = toPerson;
 	}
-	public String getWriter() {
-		return writer;
+	public String getCritic() {
+		return critic;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setCritic(String critic) {
+		this.critic = critic;
 	}
 	public String getPubDate() {
 		return pubDate;

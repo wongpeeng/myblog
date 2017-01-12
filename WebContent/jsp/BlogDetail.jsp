@@ -69,8 +69,13 @@
 			content=document.getElementById("newComment").value;
 			divSon.innerHTML=content;
 			var divFather=document.getElementById("comments_p2");
-			if(divFather.children.length==0)divFather.innerHTML="";
-			divFather.appendChild(divSon);
+			if(divFather.children.length!=0){
+				divFather.insertBefore(divSon,divFather.firstChild);
+			}else{
+				divFather.innerHTML="";
+				divFather.appendChild(divSon);
+			}
+			
 		}
 	</script>
 </body>

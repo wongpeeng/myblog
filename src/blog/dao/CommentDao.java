@@ -4,35 +4,35 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import com.mysql.jdbc.PreparedStatement;
 import blog.dbc.DataBaseConn;
-import blog.model.Notice;
+import blog.model.Comment;
 
 public class CommentDao {
 		private	DataBaseConn		dbc=null;
-		private	List<Notice>		notice=null;
+		private	List<Comment>		comment=null;
 		private	PreparedStatement	pstat=null;
 		private	ResultSet			rs=null;
 		private	String				sql=null;
 		
 		
-	public List<Notice> queryCatalog(int pageNum){
+	public List<Comment> queryComment(int logId){
 		dbc=new DataBaseConn();
-		int num=0+10*(pageNum-1);
-		notice=new LinkedList<Notice>();
+		comment=new LinkedList<Comment>();
 		try{
-			sql="select id,title,author,strDate,endDate from Notice "
-				+ "where endDate>=current_date() order by level desc, endDate asc limit ?,10";  
+			sql="select towho,critic,pubDate,content,pros,cons where logId=?";  
 			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
-			pstat.setInt(1, num);
+			pstat.setInt(1, logId);
 			rs=pstat.executeQuery();
 			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 			while(rs.next()){
-				Notice note=new Notice();
-				note.setId(rs.getInt("id"));
-				note.setTitle(rs.getString("title"));
-				note.setAuthor(rs.getString("author"));
-				note.setStrDate(df.format(rs.getDate("strDate")));
-				note.setEndDate(df.format(rs.getDate("endDate")));
-				notice.add(note);
+				Comment cmt=new Comment();
+				cmt.setId(rs.getInt("id"));
+				cmt.setToPerson(rs.getString("toPerson"));
+				cmt.setCritic(rs.getString("critic"));
+				cmt.setPubDate(df.format(rs.getDate("pubDate")));
+				cmt.setContent(rs.getString("content"));
+				cmt.setPros(rs.getInt("pros"));
+				cmt.setCons(rs.getInt("cons"));
+				comment.add(cmt);
 			}
 			
 		}catch(SQLException e){
@@ -41,34 +41,8 @@ public class CommentDao {
 		finally{
 			dbc.close(pstat, rs);
 		}
-		return notice;
+		return comment;
 	}
 		
-	public Notice queryNotice(int id){
-		Notice note=new Notice();
-		dbc=new DataBaseConn();
-		try {
-			sql="select * from Notice where id=?";
-			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
-			pstat.setInt(1, id);
-			rs=pstat.executeQuery();
-			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-			if(rs.next()){
-				note.setId(rs.getInt("id"));
-				note.setTitle(rs.getString("title"));
-				note.setAuthor(rs.getString("author"));
-				note.setStrDate(df.format(rs.getDate("strDate")));
-				note.setEndDate(df.format(rs.getDate("endDate")));
-				note.setContent(rs.getString("content"));
-			}
-		} catch (Exception e) {
-			System.out.println("fail to display notice!");
-			e.printStackTrace();
-		}finally {
-			dbc.close(pstat, rs);
-		}
-		return note;
-	}
-
 
 }
