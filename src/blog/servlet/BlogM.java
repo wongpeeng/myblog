@@ -16,7 +16,9 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import blog.dao.BlogDao;
+import blog.dao.CommentDao;
 import blog.model.Blog;
+import blog.model.Comment;
 import blog.model.User;
 import blog.util.CharacterReplace;
 
@@ -72,6 +74,10 @@ public class BlogM extends HttpServlet {
 		int id=Integer.parseInt(req.getParameter("id"));
 		Blog blog=bDao.queryBlog(id);
 		req.setAttribute("blog", blog);
+		//add comments using commentdao
+		CommentDao cDao=new CommentDao();
+		List<Comment> cList=cDao.queryComment(id);
+		req.setAttribute("cList",cList);
 		RequestDispatcher dispatcher=req.getRequestDispatcher("/jsp/BlogDetail.jsp");
 		dispatcher.forward(req, res);
 	}

@@ -20,7 +20,7 @@
 	<div id="blog"
 		style="margin: 0 auto; width: 500px; word-wrap: break-word;">
 		<c:choose>
-			<c:when test="${requestScope.blog.title!=null}">
+			<c:when test="${requestScope.blog!=null}">
 				<font color="red">title:</font>
 				<br>${requestScope.blog.title}<br>
 				<br>
@@ -38,23 +38,34 @@
 		style="margin: 0 auto; width: 500px; word-wrap: break-word;">
 		<font color="red">comments:</font><br>
 		<div id="comments_p2">
-		<c:choose>
-			<c:when test="${requestScope.cmtList.size()==0}">
-				<font color="red">title:</font>
-				<br>${requestScope.blog.title}<br>
-				<br>
-				<font color="red">content:</font>
-				<br>${requestScope.blog.content}<br>
-			</c:when>
-			<c:otherwise>
+			<c:choose>
+				<c:when test="${requestScope.cList.size()!=0}">
+					<c:forEach items="${requestScope.cList}" var="cmt">
+					<div id="${cmt.id}">
+						<c:if test="${cmt.ctype ne 'c' }">
+							to:${cmt.toPerson}<br>
+						</c:if>
+						pubDate:${cmt.pubDate}<br>
+						${cmt.content}<br>
+						<input type="button" id="pros" value="pros:${cmt.pros}" onclick="pros(${cmt.id})">
+						<input type="button" id="cons" value="cons:${cmt.cons}" onclick="cons(${cmt.id})">
+						<input type="button" id="reply" value="reply" onclick="re(${cmt.id})">
+						<c:if test="${cmt.critic eq sessionScope.user.name }">
+								<input type="button" value="delete" onclick="del(${cmt.id})">
+						</c:if>
+					</div>
+					<br>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
 				no comments!
 			</c:otherwise>
-		</c:choose>
+			</c:choose>
 		</div>
 	</div>
 	<br>
 	<br>
-	<c:if test="${requestScope.blog.title!=null}">
+	<c:if test="${requestScope.blog!=null}">
 		<div id="new commnet"
 			style="margin: 0 auto; width: 500px; word-wrap: break-word;">
 			<font color="red">new comment:</font>
@@ -68,6 +79,10 @@
 			var divSon=document.createElement("div");
 			content=document.getElementById("newComment").value;
 			divSon.innerHTML=content;
+			if(content.length==0){
+				alert("no content");
+				return;
+			}
 			var divFather=document.getElementById("comments_p2");
 			if(divFather.children.length!=0){
 				divFather.insertBefore(divSon,divFather.firstChild);
@@ -76,6 +91,18 @@
 				divFather.appendChild(divSon);
 			}
 			
+		}
+		function pros(id){
+			alert("pros");
+		}
+		function cons(id){
+			alert("cons");
+		}
+		function re(id){
+			alert("reply");
+		}
+		function del(id){
+			alert("del");
 		}
 	</script>
 </body>

@@ -18,7 +18,8 @@ public class CommentDao {
 		dbc=new DataBaseConn();
 		comment=new LinkedList<Comment>();
 		try{
-			sql="select towho,critic,pubDate,content,pros,cons where logId=?";  
+			sql="select id,toPerson,critic,pubDate,content,pros,cons,ctype from Comment "
+					+ "where logId=? order by pubDate asc ";  
 			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
 			pstat.setInt(1, logId);
 			rs=pstat.executeQuery();
@@ -32,6 +33,7 @@ public class CommentDao {
 				cmt.setContent(rs.getString("content"));
 				cmt.setPros(rs.getInt("pros"));
 				cmt.setCons(rs.getInt("cons"));
+				cmt.setCtype(rs.getString("ctype"));
 				comment.add(cmt);
 			}
 			

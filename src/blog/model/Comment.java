@@ -9,6 +9,7 @@ public class Comment {
 	private String content;
 	private int pros;
 	private int cons;
+	private String ctype;
 	public int getId() {
 		return id;
 	}
@@ -63,5 +64,13 @@ public class Comment {
 	public void setCons(int cons) {
 		this.cons = cons;
 	}
+	public String getCtype() {
+		return ctype;
+	}
+	public void setCtype(String ctype) {
+		this.ctype = ctype;
+	}
+	
+	
 	
 }
