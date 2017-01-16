@@ -46,4 +46,12 @@
     <servlet-name>notice.do</servlet-name>
     <url-pattern>/notice.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>comment.do</servlet-name>
+  	<servlet-class>blog.servlet.CommentM</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>comment.do</servlet-name>
+  	<url-pattern>/comment.do</url-pattern>
+  </servlet-mapping>
 </web-app>

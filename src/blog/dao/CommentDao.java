@@ -45,6 +45,26 @@ public class CommentDao {
 		}
 		return comment;
 	}
-		
+	
+	public boolean delCmt(int cid){
+		dbc=new DataBaseConn();
+		boolean r=false;
+		try{
+			sql="delete from Comment where id=?";
+			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
+			pstat.setInt(1, cid);
+			int col=pstat.executeUpdate();
+			if(col!=0) r=true;
+		}catch(SQLException e){
+			System.out.println("fail to delete comment");
+			e.printStackTrace();
+		}finally{
+			dbc.close(pstat, rs);
+		}
+		return r;
+	}
 
+	public boolean newCmt(int blogId,String toPerson,String critic,String content,String t){
+		
+	}
 }
