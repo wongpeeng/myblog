@@ -47,9 +47,9 @@
 						</c:if>
 						pubDate:${cmt.pubDate}<br>
 						${cmt.content}<br>
-						<input type="button" id="pros" value="pros:${cmt.pros}" onclick="pros(${cmt.id})">
-						<input type="button" id="cons" value="cons:${cmt.cons}" onclick="cons(${cmt.id})">
-						<input type="button" id="reply" value="reply" onclick="re(${cmt.id})">
+						<input type="button" id="pros${cmt.id}" value="pros:${cmt.pros}" onclick="pros(${cmt.id})">
+						<input type="button" id="cons${cmt.id}" value="cons:${cmt.cons}" onclick="cons(${cmt.id})">
+						<input type="button" id="reply${cmt.id}" value="reply" onclick="re(${cmt.id})">
 						<c:if test="${cmt.critic eq sessionScope.user.name }">
 								<input type="button" value="delete" onclick="del(${cmt.id})">
 						</c:if>
@@ -75,6 +75,8 @@
 		</div>
 	</c:if>
 	<script type="text/javascript">
+		var blogId=requestScope.blog.id;
+		var status=false;
 		function newComment(){
 			var divSon=document.createElement("div");
 			content=document.getElementById("newComment").value;
@@ -92,8 +94,19 @@
 			}
 			
 		}
-		function pros(id){
-			alert("pros");
+		function pros(cid){
+			var content="cType=prosCmt&cid="+cid;
+			req(content);
+			if(status){
+				var bId="pros"+cid;
+				var button=document.getElementById(bId);
+				var s=button.value;
+				s=s.replace("pros:","");
+				s=parseInt(s)+1;
+				s="pros:"+s;
+				button.value=s;
+			}else{alert("fail to pros comment!");}
+			status=false;
 		}
 		function cons(id){
 			alert("cons");
@@ -103,6 +116,24 @@
 		}
 		function del(id){
 			alert("del");
+		}
+		function req(data){
+			var xmlHttp;
+			if(window.XMLHttpRequest){
+				xmlHttp=new XMLHttpRequest();
+			}
+			else{
+				xmlHttpNotice=new ActiveXObject("Microsof.XMLHTTP");
+			}
+			xmlHttp.onreadystatechange=function(){
+				if(xmlHttp.readyState==4&&xmlHttp.status==200){
+					var rs=eval("("+xmlHttp.responseText+")");
+					if(rs.status=="true")status=true;
+				}
+			}
+			xmlHttp.open("post","/myblog/comment.do",false);
+			xmlHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlHttp.send(data);
 		}
 	</script>
 </body>

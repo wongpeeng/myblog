@@ -29,7 +29,8 @@ public class CommentM extends HttpServlet {
 		String cType=req.getParameter("cType");
 		if(cType.equals("newCmt")) newCmt(req,res);
 		if(cType.equals("delCmt")) delCmt(req,res);
-		
+		if(cType.equals("prosCmt")) prosCmt(req,res);
+		if(cType.equals("consCmt")) consCmt(req,res);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -70,6 +71,30 @@ public class CommentM extends HttpServlet {
 		out.flush();
 		out.close();
 	}
-	
-	
+	public  void prosCmt(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException{
+		int cmtId=Integer.parseInt(req.getParameter("cid"));
+		CommentDao cDao=new CommentDao();
+		boolean rs=cDao.prosCmt(cmtId);
+		JSONObject jo=new JSONObject();
+		if(rs) jo.put("status", "true");
+		else jo.put("status", "false");
+		res.setContentType("application/json; charset=utf-8");
+		PrintWriter out=res.getWriter();
+		out.println(jo);
+		out.flush();
+		out.close();
+	}
+	public  void consCmt(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException{
+		int cmtId=Integer.parseInt(req.getParameter("cid"));
+		CommentDao cDao=new CommentDao();
+		boolean rs=cDao.consCmt(cmtId);
+		JSONObject jo=new JSONObject();
+		if(rs) jo.put("status", "true");
+		else jo.put("status", "false");
+		res.setContentType("application/json; charset=utf-8");
+		PrintWriter out=res.getWriter();
+		out.println(jo);
+		out.flush();
+		out.close();
+	}
 }

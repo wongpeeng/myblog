@@ -65,6 +65,61 @@ public class CommentDao {
 	}
 
 	public boolean newCmt(int blogId,String toPerson,String critic,String content,String t){
-		
+		dbc=new DataBaseConn();
+		boolean r=false;
+		try{
+			sql="insert into Comment(logId,toPerson,critic,content,ctype) values(?,?,?,?,?)";
+			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
+			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
+			pstat.setInt(1, blogId);
+			pstat.setString(2, toPerson);
+			pstat.setString(3,critic);
+			pstat.setString(4, content);
+			pstat.setString(5, t);
+			int col=pstat.executeUpdate();
+			if(col!=0)r=true;
+		}catch(SQLException e){
+			System.out.println("fail to create new comment!");
+			e.printStackTrace();
+		}finally{
+			dbc.close(pstat, rs);
+		}
+		return r;
+	}
+
+	public boolean prosCmt(int cmtId){
+		dbc=new DataBaseConn();
+		boolean r=false;
+		try{
+			sql="update Comment set pros=pros+1 where id=?";
+			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
+			pstat.setInt(1, cmtId);
+			int col=pstat.executeUpdate();
+			if(col!=0)r=true;
+		}catch(SQLException e){
+			System.out.println("fail to pros");
+			e.printStackTrace();
+		}finally{
+			dbc.close(pstat, rs);
+		}
+		return r;
+	}
+
+	public boolean consCmt(int cmtId){
+		dbc=new DataBaseConn();
+		boolean r=false;
+		try{
+			sql="update Comment set cons=cons+1 where id=?";
+			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
+			pstat.setInt(1, cmtId);
+			int col=pstat.executeUpdate();
+			if(col!=0)r=true;
+		}catch(SQLException e){
+			System.out.println("fail to cons");
+			e.printStackTrace();
+		}finally{
+			dbc.close(pstat, rs);
+		}
+		return r;
 	}
 }

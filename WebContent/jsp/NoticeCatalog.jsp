@@ -34,7 +34,7 @@ function loadNoticeCatalog(url){
 	if(window.XMLHttpRequest){
 		xmlHttpNotice=new XMLHttpRequest();
 	}
-	else{alert("ok!");
+	else{
 		xmlHttpNotice=new ActiveXObject("Microsof.XMLHTTP");
 	}
 	xmlHttpNotice.onreadystatechange=function (){
