@@ -23,7 +23,7 @@ public class CommentDao {
 			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
 			pstat.setInt(1, logId);
 			rs=pstat.executeQuery();
-			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			while(rs.next()){
 				Comment cmt=new Comment();
 				cmt.setId(rs.getInt("id"));
@@ -64,9 +64,9 @@ public class CommentDao {
 		return r;
 	}
 
-	public boolean newCmt(int blogId,String toPerson,String critic,String content,String t){
+	public int newCmt(int blogId,String toPerson,String critic,String content,String t){
 		dbc=new DataBaseConn();
-		boolean r=false;
+		int r=-1;
 		try{
 			sql="insert into Comment(logId,toPerson,critic,content,ctype) values(?,?,?,?,?)";
 			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
@@ -76,8 +76,12 @@ public class CommentDao {
 			pstat.setString(3,critic);
 			pstat.setString(4, content);
 			pstat.setString(5, t);
-			int col=pstat.executeUpdate();
-			if(col!=0)r=true;
+			pstat.executeUpdate();
+			rs=pstat.getGeneratedKeys();
+			if(rs.next()){
+				r=rs.getInt(1);
+			}
+			
 		}catch(SQLException e){
 			System.out.println("fail to create new comment!");
 			e.printStackTrace();

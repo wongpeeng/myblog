@@ -27,7 +27,7 @@ function nextPage(){
 }
 function updateBlogCatalog(){
 	var num=pageNum+1;
-	var url="./blog.do?blogType="+blogType+"&pageNum="+num;
+	var url="/myblog/blog.do?blogType="+blogType+"&pageNum="+num;
 	loadBlogCatalog(url);
 }
 function loadBlogCatalog(url){
@@ -44,7 +44,7 @@ function loadBlogCatalog(url){
 			var txt="";
 			var div=document.getElementById("Blog");
 			var cur=document.getElementById("cur");
-			var ref="<a href=\"blog.do?blogType=show&id=";
+			var ref="<a href=\"/myblog/blog.do?blogType=show&id=";
 			if(con.length!=0){
 				for(var js in con){
 					txt=txt+ref+con[js].id+"\">"+con[js].title+"</a><br>author:"+con[js].author+"&nbsp;&nbsp;&nbsp;&nbsp;comments:"+con[js].cmt+"&nbsp;&nbsp;&nbsp;&nbsp;views:"+con[js].views+"<br>pubdate:"+con[js].pubDate+"&nbsp;&nbsp;&nbsp;&nbsp;revdate:"+con[js].revDate+"<br><br>";

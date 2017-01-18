@@ -16,6 +16,9 @@ import blog.model.User;
 import blog.util.CharacterReplace;
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -41,16 +44,22 @@ public class CommentM extends HttpServlet {
 	public  void newCmt(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException{
 		String content=req.getParameter("content");
 		content=CharacterReplace.contentReplace(content);
-		int bid=Integer.parseInt(req.getParameter("bid"));
+		int bid=Integer.parseInt(req.getParameter("blogId"));
 		String toPerson=req.getParameter("toPerson");
 		HttpSession session=req.getSession();
 		String critic=((User)session.getAttribute("user")).getName();
 		String t=req.getParameter("t");
 		CommentDao cDao=new CommentDao();
-		boolean rs=cDao.newCmt(bid,toPerson,critic,content,t);
+		int rs=cDao.newCmt(bid,toPerson,critic,content,t);
 		JSONObject jo=new JSONObject();
-		if(rs) jo.put("status", "true");
-		else jo.put("status", "false");
+		if(rs==-1) jo.put("status", "false");
+		else {
+			jo.put("status" ,"true");
+			jo.put("cid", String.valueOf(rs));
+			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date date=new Date();
+			jo.put("date", df.format(date));
+		}
 		res.setContentType("application/json; charset=utf-8");
 		PrintWriter out=res.getWriter();
 		out.println(jo);

@@ -26,7 +26,7 @@ function aPage(){
 }
 function updateNoticeCatalog(){
 	var num=noPage+1;
-	var url="notice.do?nType=list&pageNum="+num;
+	var url="/myblog/notice.do?nType=list&pageNum="+num;
 	loadNoticeCatalog(url);
 }
 function loadNoticeCatalog(url){
@@ -43,7 +43,7 @@ function loadNoticeCatalog(url){
 			var txt="";
 			var div=document.getElementById("Notice");
 			var cur=document.getElementById("now");
-			var ref="<a href=\"notice.do?nType=show&id=";
+			var ref="<a href=\"/myblog/notice.do?nType=show&id=";
 			if(con.length!=0){
 				for(var js in con){
 					txt=txt+ref+con[js].id+"\">"+con[js].title+"</a><br>author:"+con[js].author+"&nbsp;&nbsp;&nbsp;&nbsp;Emergency Level:"+con[js].level+"<br>from:"+con[js].strDate+"&nbsp;&nbsp;&nbsp;&nbsp;to:"+con[js].endDate+"<br><br>";
