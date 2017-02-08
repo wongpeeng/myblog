@@ -46,7 +46,7 @@
 						pubDate:${cmt.pubDate}<br>
 						<c:if test="${cmt.ctype ne 'c' }">
 							to:${cmt.toPerson}<br>
-						</c:if>
+						</c:if><br>
 						${cmt.content}<br>
 						<input type="hidden" id="critic${cmt.id}"  value="${cmt.critic}">
 						<input type="button" id="pros${cmt.id}" value="pros:${cmt.pros}" onclick="pros(${cmt.id})">
@@ -55,8 +55,8 @@
 						<c:if test="${cmt.critic eq sessionScope.user.name }">
 								<input type="button" value="delete" onclick="del(${cmt.id})">
 						</c:if>
+						<br>
 					</div>
-					<br>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -77,23 +77,49 @@
 		</div>
 	</c:if>
 	<script type="text/javascript">
-		var blogId="${requestScope.blog.id}";
-		var user="${sessionScope.user.name}";
-		var toPerson_default="${requestScope.blog.author}";
+		var blogId=${requestScope.blog.id};
+		var user=${sessionScope.user.name};
+		var toPerson_default=${requestScope.blog.author};
 		var toPerson_real=toPerson_default;
 		var t="c";
 		var status=false;
 		var newCmtId="-1";
 		var pubDate="";
 		function newComment(){
+			var divSon=document.createElement("div");
 			data=document.getElementById("newComment").value;
-			if(!check(data))
+			if(!check(content))
 					return false;
-			content="cType=newCmt&content="+data+"&blogId="+blogId+"&toPerson="+toPerson_real+"&t="+t;
+			divSon.innerHTML=data;
+			content="cType=newCmt&content="+data+"blogId="+blogId+"&toPerson="+toPerson_real+"&t="+t;
 			req(content);
 			if(!status){alert("fail to comment!") ;return;}
-			window.location.reload(true);
-			t="c";
+			//<!--set divSon properties and content! -->
+			divSon.id=newCmtId;
+			divSon.style.display="block";
+			divData=user+"&nbsp;&nbsp;&nbsp;&nbsp;pubDate:"+pubDate+"<br>"+data+"<br>";
+			var b1=document.createElement("button");
+			var t1=document.createTextNode("pros:0");
+			var b2=document.createElement("button");
+			var t2=document.createTextNode("cons:0");
+			var b3=document.createElement("button");
+			var t3=document.createTextNode("reply");
+			var b3=document.createElement("button");
+			var t3=document.createTextNode("del");
+			b1.appendChild(t1);b2.appendChild(t2);b3.appendChild(t3);b4.appendChild(t4);
+			divSon.innerHTML=divData;
+			divSon.appendChild(b1);divSon.appendChild(b2);divSon.appendChild(b3);divSon.appendChild(b4);
+			//////////////
+			var divFather=document.getElementById("comments_p2");
+			if(divFather.children.length!=0){
+				divFather.appendChild(divSon);
+			}else{
+				divFather.innerHTML="";
+				divFather.appendChild(divSon);
+			}
+			newCmtId="-1";
+			pubDate="";
+			status=false;
 		}
 		function pros(cid){
 			var content="cType=prosCmt&cid="+cid;
@@ -123,20 +149,11 @@
 			}else{alert("fail to pros comment!");}
 			status=false;
 		}
-		function re(cid){
-			t="r";
-			p="critic"+cid;
-			toPerson_real=document.getElementById(p).value;
-			alert("now type characters below!");
+		function re(id){
+			alert("reply");
 		}
-		function del(cid){
-			data="cType=delCmt&cid="+cid;
-			req(data);
-			if(status){
-				div=document.getElementById(cid);
-				div.style.display="none";
-			}
-			status=false;
+		function del(id){
+			alert("del");
 		}
 		function req(data){
 			var xmlHttp;
@@ -150,8 +167,11 @@
 				if(xmlHttp.readyState==4&&xmlHttp.status==200){
 					var rs=eval("("+xmlHttp.responseText+")");
 					if(rs.status=="false");
-					else
+					else {
 						status=true;
+						newCmtId=rs.cid;
+						pubDate=rs.date;
+					}
 				}
 			}
 			xmlHttp.open("post","/myblog/comment.do",false);
@@ -160,13 +180,8 @@
 		}
 		function check(data){
 			var reg=/[^\u0020-\u007e\u4e00-\u9fa5\ufe30-\uffa0\u3000-\u303f\u2018\u2019\u2014\u2026\u2013\u201c\u201d\r\n]/g;
-			if(reg.test(data)){
-				window.alert("illegal characters!");
-				return false;
-			}
 			if(data.length>500||data.length<10){
 				alert("10<=content length<=500!");
-				alert(data.length);
 				return false;
 			}
 			return true;

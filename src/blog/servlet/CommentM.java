@@ -53,13 +53,7 @@ public class CommentM extends HttpServlet {
 		int rs=cDao.newCmt(bid,toPerson,critic,content,t);
 		JSONObject jo=new JSONObject();
 		if(rs==-1) jo.put("status", "false");
-		else {
-			jo.put("status" ,"true");
-			jo.put("cid", String.valueOf(rs));
-			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date date=new Date();
-			jo.put("date", df.format(date));
-		}
+		else	jo.put("status" ,"true");
 		res.setContentType("application/json; charset=utf-8");
 		PrintWriter out=res.getWriter();
 		out.println(jo);
@@ -69,7 +63,7 @@ public class CommentM extends HttpServlet {
 	}
 	public	void delCmt(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException{
 		CommentDao cDao=new CommentDao();
-		int id=Integer.parseInt(req.getParameter("id"));
+		int id=Integer.parseInt(req.getParameter("cid"));
 		boolean rs=cDao.delCmt(id);
 		JSONObject jo=new JSONObject();
 		if(rs) jo.put("status", "true");

@@ -29,7 +29,7 @@ public class CommentDao {
 				cmt.setId(rs.getInt("id"));
 				cmt.setToPerson(rs.getString("toPerson"));
 				cmt.setCritic(rs.getString("critic"));
-				cmt.setPubDate(df.format(rs.getDate("pubDate")));
+				cmt.setPubDate(df.format(rs.getTimestamp("pubDate")));
 				cmt.setContent(rs.getString("content"));
 				cmt.setPros(rs.getInt("pros"));
 				cmt.setCons(rs.getInt("cons"));
