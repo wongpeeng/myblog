@@ -13,7 +13,6 @@
 	<br>
 	<%@	include file="FuncModule.jsp" %>
 	<br>
-	<%@ include file="NoticeCatalog.jsp" %>
 	<%@ include file="BlogCatalog.jsp" %>
 	<%@ include file="ExtraInfo.jsp"%>
 

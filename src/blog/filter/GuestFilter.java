@@ -41,11 +41,12 @@ public class GuestFilter implements Filter {
 
 		// pass the request along the filter chain
 		boolean login=true;
+		HttpSession session=null;
 		try {
 			System.out.println("start filter guest!");
 			HttpServletRequest req=(HttpServletRequest) request;
 			HttpServletResponse res=(HttpServletResponse) response;
-			HttpSession session=req.getSession(false);
+			session=req.getSession(false);
 			login=req.getServletPath().equals("/index.jsp")||req.getServletPath().equals("/login.do");
 		} catch (Exception e) {
 			System.out.println("fail to filter login!");

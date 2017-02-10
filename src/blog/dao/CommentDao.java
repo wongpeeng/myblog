@@ -70,18 +70,18 @@ public class CommentDao {
 		try{
 			sql="insert into Comment(logId,toPerson,critic,content,ctype) values(?,?,?,?,?)";
 			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
-			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
 			pstat.setInt(1, blogId);
 			pstat.setString(2, toPerson);
 			pstat.setString(3,critic);
 			pstat.setString(4, content);
 			pstat.setString(5, t);
-			pstat.executeUpdate();
-			rs=pstat.getGeneratedKeys();
-			if(rs.next()){
-				r=rs.getInt(1);
+			r=pstat.executeUpdate();
+			if(r!=-1){
+				sql="update Blog set cmt=cmt+1 where id=?";
+				pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
+				pstat.setInt(1,blogId);
+				pstat.executeUpdate();
 			}
-			
 		}catch(SQLException e){
 			System.out.println("fail to create new comment!");
 			e.printStackTrace();

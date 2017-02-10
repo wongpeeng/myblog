@@ -100,29 +100,22 @@ public class UserDao {
 	 * <p>update user's password and grp<br>
 	 * @return true->successful,false->failed
 	 */
-	public boolean updateUser(String name,String grp,String pwd){
+	public boolean userPwd(String name,String oldPwd,String newPwd){
 		dbc=new DataBaseConn();
-		sql="update User SET grp=?, pwd=? where name=?";
+		boolean rs=false;
 		try{
-			pstat=(PreparedStatement) dbc.getConn().prepareStatement(sql);
-			pstat.setString(1, grp);
-			pstat.setString(2, pwd);
-			pstat.setString(3,name);
+			sql="update User set pwd=? where name=? and pwd=?";
+			pstat=(PreparedStatement)dbc.getConn().prepareStatement(sql);
+			pstat.setString(1,newPwd);
+			pstat.setString(2, name);
+			pstat.setString(3, oldPwd);
 			int col=pstat.executeUpdate();
-			if(col==0)
-				return false;
-			else
-				return true;
+			if(col!=0)rs=true;
 		}catch(SQLException e){
+			System.out.println("fail to update password!");
 			e.printStackTrace();
-			System.out.println(e.getMessage());
-			return false;
 		}
-		finally{
-			dbc.close(pstat,rs);
-		}
+		return rs;
 	}
-
-
 
 }

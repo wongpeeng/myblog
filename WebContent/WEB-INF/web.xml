@@ -62,4 +62,12 @@
     <servlet-name>comment.do</servlet-name>
     <url-pattern>/comment.do</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>manage.do</servlet-name>
+    <servlet-class>blog.servlet.UserM</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>manage.do</servlet-name>
+    <url-pattern>/manage.do</url-pattern>
+  </servlet-mapping>
 </web-app>

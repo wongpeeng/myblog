@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import blog.dao.CommentDao;
-import blog.dao.NoticeDao;
-import blog.model.Notice;
 import blog.model.User;
 import blog.util.CharacterReplace;
 

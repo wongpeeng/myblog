@@ -82,7 +82,7 @@
 		var toPerson_default="${requestScope.blog.author}";
 		var toPerson_real=toPerson_default;
 		var t="c";
-		var status=false;
+		var status="false";
 		var newCmtId="-1";
 		var pubDate="";
 		function newComment(){
@@ -91,14 +91,14 @@
 					return false;
 			content="cType=newCmt&content="+data+"&blogId="+blogId+"&toPerson="+toPerson_real+"&t="+t;
 			req(content);
-			if(!status){alert("fail to comment!") ;return;}
+			if(status=="false"){alert("fail to comment!") ;return;}
 			window.location.reload(true);
 			t="c";
 		}
 		function pros(cid){
 			var content="cType=prosCmt&cid="+cid;
 			req(content);
-			if(status){
+			if(status=="true"){
 				var bId="pros"+cid;
 				var button=document.getElementById(bId);
 				var s=button.value;
@@ -107,12 +107,12 @@
 				s="pros:"+s;
 				button.value=s;
 			}else{alert("fail to pros comment!");}
-			status=false;
+			status="false";
 		}
 		function cons(cid){
 			var content="cType=consCmt&cid="+cid;
 			req(content);
-			if(status){
+			if(status=="true"){
 				var bId="cons"+cid;
 				var button=document.getElementById(bId);
 				var s=button.value;
@@ -121,7 +121,7 @@
 				s="cons:"+s;
 				button.value=s;
 			}else{alert("fail to pros comment!");}
-			status=false;
+			status="false";
 		}
 		function re(cid){
 			t="r";
@@ -132,11 +132,11 @@
 		function del(cid){
 			data="cType=delCmt&cid="+cid;
 			req(data);
-			if(status){
+			if(status=="true"){
 				div=document.getElementById(cid);
 				div.style.display="none";
 			}
-			status=false;
+			status="false";
 		}
 		function req(data){
 			var xmlHttp;
@@ -151,7 +151,7 @@
 					var rs=eval("("+xmlHttp.responseText+")");
 					if(rs.status=="false");
 					else
-						status=true;
+						status="true";
 				}
 			}
 			xmlHttp.open("post","/myblog/comment.do",false);
@@ -166,7 +166,6 @@
 			}
 			if(data.length>500||data.length<10){
 				alert("10<=content length<=500!");
-				alert(data.length);
 				return false;
 			}
 			return true;

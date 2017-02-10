@@ -1,5 +1,7 @@
 package blog.servlet;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import blog.dao.UserDao;
 import blog.model.User;
+import net.sf.json.JSONObject;
 
 public class UserM extends HttpServlet {
 	private static final long serialVersionUID=1;
@@ -15,10 +18,9 @@ public class UserM extends HttpServlet {
 		//add code to judge session existence
 		String click=req.getParameter("click");
 		if(click.equals("guest")) guest(req,res);
-		else{
-			if(click.equals("login")) userLogin(req,res);
-			else userRegister(req,res);
-		}
+		if(click.equals("login")) userLogin(req,res);
+		if(click.equals("register")) userRegister(req,res);
+		if(click.equals("pwd")) userPwd(req,res);
 	}
 	
 	public void doPost(HttpServletRequest req,HttpServletResponse res)
@@ -67,5 +69,22 @@ public class UserM extends HttpServlet {
 			res.sendRedirect("index.jsp?regErr=yes");
 		else
 			res.sendRedirect("index.jsp?regOK=yes");
+	}
+	
+	public void userPwd(HttpServletRequest req,HttpServletResponse res) 
+			throws IOException,ServletException{
+		UserDao uDao=new UserDao();
+		String oldPwd=req.getParameter("oldPwd");
+		String newPwd=req.getParameter("newPwd");
+		String user=req.getParameter("user");
+		boolean rs=uDao.userPwd(user,oldPwd,newPwd);
+		JSONObject jo=new JSONObject();
+		if(rs) jo.put("status", "true");
+		else	jo.put("status" ,"false");
+		res.setContentType("application/json; charset=utf-8");
+		PrintWriter out=res.getWriter();
+		out.println(jo);
+		out.flush();
+		out.close();
 	}
 }
