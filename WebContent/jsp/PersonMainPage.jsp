@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,17 +14,20 @@
 <center>
 	<input type="button" id="myset" 	name="set" 			value="personal settings" 	onclick="myset()">
 	<input type="button" id="myblog" 	name="myblog" 		value="blogs" 				onclick="myblog()">
+	<c:if test="${sessionScope.user.grp eq 'admin'}">
+		<input type="button" id="admin" name="admin" value="admin center" onclick="window.location.href='/myblog/jsp/AdminCenter.jsp'">
+	</c:if>
 </center>
 <br>
 
 <div id="setting" style="margin:0 auto;width:500px;height:auto;display:block;align=left;">
 <font color="red">change password</font>：<br><br>
-	old password:<input type="password" id="oldPwd" name=“oldPwd”><br>
-	new password:<input type="password" id ="newPwd" name="newPwd"><br>
+	old password:<br><input type="password" id="oldPwd" name=“oldPwd”><br>
+	new password:<br><input type="password" id ="newPwd" name="newPwd"><br>
 	<input type="button" value="submit" onclick="newPwd()">
 	<br><br>
 <font color="red">close account</font>：<br><br>
-	password:<input type="password" id ="cPwd" name="cPwd"><br>
+	password:<br><input type="password" id ="cPwd" name="cPwd"><br>
 	<input type="button" value="submit" onclick="cAccount()">
 	<br><br>
 </div>
@@ -88,7 +92,7 @@ function req(data){
 					if(rs.status == "true")status="true";
 				}
 			}
-			xmlHttp.open("post","/myblog/manage.do",false);
+			xmlHttp.open("post","/myblog/login.do",false);
 			xmlHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlHttp.send(data);
 		}

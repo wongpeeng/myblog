@@ -64,7 +64,7 @@
   </servlet-mapping>
    <servlet>
     <servlet-name>manage.do</servlet-name>
-    <servlet-class>blog.servlet.UserM</servlet-class>
+    <servlet-class>blog.servlet.AdminM</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>manage.do</servlet-name>
