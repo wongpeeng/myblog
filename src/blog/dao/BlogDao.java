@@ -109,9 +109,10 @@ public class BlogDao {
 		int num = 0 + 10 * (pageNum - 1);
 		catalog = new LinkedList<Blog>();
 		try {
-			sql = "select id,title,revDate,cmt from Blog " + "order by revDate desc, cmt desc limit ?,10";
+			sql = "select id,title,revDate,cmt from Blog where author=? order by revDate desc, cmt desc limit ?,10";
 			pstat = (PreparedStatement) dbc.getConn().prepareStatement(sql);
-			pstat.setInt(1, num);
+			pstat.setString(1, name);
+			pstat.setInt(2, num);
 			rs = pstat.executeQuery();
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			while (rs.next()) {

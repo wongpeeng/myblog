@@ -21,6 +21,7 @@ public class UserM extends HttpServlet {
 		if(click.equals("login")) userLogin(req,res);
 		if(click.equals("register")) userRegister(req,res);
 		if(click.equals("pwd")) userPwd(req,res);
+		if(click.equals("close")) delUser(req,res);
 	}
 	
 	public void doPost(HttpServletRequest req,HttpServletResponse res)
@@ -86,5 +87,21 @@ public class UserM extends HttpServlet {
 		out.println(jo);
 		out.flush();
 		out.close();
+	}
+	
+	public void delUser(HttpServletRequest req,HttpServletResponse res)
+		throws IOException,ServletException{
+		String user=req.getParameter("user");
+		String pwd=req.getParameter("pwd");
+		UserDao uDao=new UserDao();
+		boolean rs=uDao.deleteUser(user,pwd);
+			JSONObject jo=new JSONObject();
+			if(!rs)jo.put("status", "false");
+			else jo.put("status", "true");
+			res.setContentType("application/json; charset=utf-8");
+			PrintWriter out=res.getWriter();
+			out.println(jo);
+			out.flush();
+			out.close();
 	}
 }

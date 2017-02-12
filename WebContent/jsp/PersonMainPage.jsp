@@ -21,8 +21,11 @@
 	old password:<input type="password" id="oldPwd" name=“oldPwd”><br>
 	new password:<input type="password" id ="newPwd" name="newPwd"><br>
 	<input type="button" value="submit" onclick="newPwd()">
-
-
+	<br><br>
+<font color="red">close account</font>：<br><br>
+	password:<input type="password" id ="cPwd" name="cPwd"><br>
+	<input type="button" value="submit" onclick="cAccount()">
+	<br><br>
 </div>
 
 
@@ -60,6 +63,16 @@ function newPwd(){
 		alert("try again!");
 	}
 	status="false";
+}
+function cAccount(){
+	cp=document.getElementById("cPwd").value;
+	if(!check(cp)){alert("check password!");return;}
+	data="click=close&pwd="+cp+"&user="+user;
+	req(data);
+	if(status=="false")
+		alert("try again!");
+	else
+		window.location.href="/myblog/index.jsp";
 }
 function req(data){
 			var xmlHttp;
