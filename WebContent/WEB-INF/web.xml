@@ -20,6 +20,12 @@
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <listener>
+  	<listener-class>blog.listener.SessionListener</listener-class>
+  </listener>
+  <session-config>
+  	<session-timeout>10</session-timeout>
+  </session-config>
   <jsp-config>
     <taglib>
       <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
@@ -62,7 +68,7 @@
     <servlet-name>comment.do</servlet-name>
     <url-pattern>/comment.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>manage.do</servlet-name>
     <servlet-class>blog.servlet.AdminM</servlet-class>
   </servlet>

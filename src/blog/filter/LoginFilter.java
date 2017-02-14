@@ -42,11 +42,10 @@ public class LoginFilter implements Filter {
 
 		// pass the request along the filter chain
 		HttpSession session=null;
-		boolean login=true;
+		boolean login=false;
 		try {
 			System.out.println("start filter login!");
 			HttpServletRequest req=(HttpServletRequest) request;
-			HttpServletResponse res=(HttpServletResponse) response;
 			session=req.getSession(false);
 			login=req.getServletPath().equals("/index.jsp")||req.getServletPath().equals("/login.do");
 		} catch (Exception e) {
