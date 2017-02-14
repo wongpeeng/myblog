@@ -22,6 +22,7 @@ public class UserM extends HttpServlet {
 		if(click.equals("register")) userRegister(req,res);
 		if(click.equals("pwd")) userPwd(req,res);
 		if(click.equals("close")) delUser(req,res);
+		if(click.equals("logout")) logoutUser(req,res);
 	}
 	
 	public void doPost(HttpServletRequest req,HttpServletResponse res)
@@ -104,4 +105,16 @@ public class UserM extends HttpServlet {
 			out.flush();
 			out.close();
 	}
+	public void logoutUser(HttpServletRequest req,HttpServletResponse res)
+			throws IOException,ServletException{
+			HttpSession session=req.getSession(false);
+			session.invalidate();
+				JSONObject jo=new JSONObject();
+				jo.put("status", "true");
+				res.setContentType("application/json; charset=utf-8");
+				PrintWriter out=res.getWriter();
+				out.println(jo);
+				out.flush();
+				out.close();
+		}
 }

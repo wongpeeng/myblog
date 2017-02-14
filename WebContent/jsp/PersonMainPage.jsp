@@ -17,6 +17,7 @@
 	<c:if test="${sessionScope.user.grp eq 'admin'}">
 		<input type="button" id="admin" name="admin" value="admin center" onclick="window.location.href='/myblog/jsp/AdminCenter.jsp'">
 	</c:if>
+	<input type="button" id="logout" name="logout" value="log out" onclick="logout()">
 </center>
 <br>
 
@@ -48,7 +49,6 @@ function myblog(){
 	document.getElementById("setting").style.display="none";
 	document.getElementById("blog").style.display="block";
 }
-
 //////////////setting////////
 status="false";
 user="${sessionScope.user.name}"
@@ -57,7 +57,7 @@ function newPwd(){
 	op=document.getElementById("oldPwd").value;
 	if(!check(op)){alert("check old password!");return;}
 	if(!check(np)){alert("check new password!");return;}
-	data="click=pwd&oldPwd="+op+"&newPwd="+np+"&user="+user;
+	var data="click=pwd&oldPwd="+op+"&newPwd="+np+"&user="+user;
 	req(data);
 	if(status == "true"){
 		alert("successful!");
@@ -68,10 +68,15 @@ function newPwd(){
 	}
 	status="false";
 }
+function logout(){
+	var data="click=logout";
+	req(data);
+	window.location.reload(true);
+}
 function cAccount(){
 	cp=document.getElementById("cPwd").value;
 	if(!check(cp)){alert("check password!");return;}
-	data="click=close&pwd="+cp+"&user="+user;
+	var data="click=close&pwd="+cp+"&user="+user;
 	req(data);
 	if(status=="false")
 		alert("try again!");

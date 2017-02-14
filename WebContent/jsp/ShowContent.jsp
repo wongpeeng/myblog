@@ -7,14 +7,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Blog Main Page</title>
 </head>
-<body onload="updateBlogCatalog();updateNoticeCatalog();">
+<body onload="updateBlogCatalog();ctime();">
 
 	<%@ include file="PersonInfo.jsp" %><br>
 	<br>
 	<%@	include file="FuncModule.jsp" %>
 	<br>
 	<%@ include file="BlogCatalog.jsp" %>
-	<%@ include file="ExtraInfo.jsp"%>
+	
+	<jsp:include page="ExtraInfo.jsp" flush="true"></jsp:include>
 
 	</body>
+
 </html>
